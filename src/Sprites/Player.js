@@ -17,6 +17,8 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     }
 
     update(cursors, dust) {
+        // Movement controls
+        // Also applies particle effects if given
         if (cursors.left.isDown) {
             this.body.setVelocityX(-this.VELOCITY);
             this.resetFlip();
