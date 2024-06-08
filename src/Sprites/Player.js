@@ -8,7 +8,9 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         this.body.setCollideWorldBounds(true);
 
         this.scene = scene;
-        this.VELOCITY = 200;
+        this.ACCELERATION = 10;
+        this.VELOCITY = 0;
+        this.MAXVELOCITY = 200;
         this.JUMP_VELOCITY = -250
         this.PARTICLE_VELOCITY = 25;
         this.DRAG = 600;
@@ -20,8 +22,23 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         // Movement controls
         // Also applies particle effects if given
         if (cursors.left.isDown) {
-            this.body.setVelocityX(-this.VELOCITY);
-            this.resetFlip();
+            if (this.VELOCITY >= -this.MAXVELOCITY) {
+                if (this.VELOCITY > 150) {
+                    this.VELOCITY = 150;
+                }
+                // If player is on the ground, slow down like normal
+                // if in air, slow down until velocity is about 0
+                if (this.body.blocked.down) {
+                    this.VELOCITY -= this.ACCELERATION;
+                    this.resetFlip();
+                }
+                else {
+                    if (this.VELOCITY > 0) {
+                        this.VELOCITY -= this.ACCELERATION * 0.25;
+                    }
+                }
+            }
+            this.body.setVelocityX(this.VELOCITY);
             this.anims.play('walk', true);
             if (dust) {
                 dust.startFollow(this, this.displayWidth / 2 - 10, this.displayHeight / 2 - 5, false);
@@ -38,8 +55,23 @@ class Player extends Phaser.Physics.Arcade.Sprite {
             }
         } 
         else if (cursors.right.isDown) {
+            if(this.VELOCITY <= this.MAXVELOCITY) {
+                if (this.VELOCITY < -150) {
+                    this.VELOCITY = -150;
+                }
+                // If player is on the ground, slow down like normal
+                // if in air, slow down until velocity is about 0
+                if (this.body.blocked.down) {
+                    this.VELOCITY += this.ACCELERATION;
+                    this.setFlip(true, false);
+                }
+                else {
+                    if (this.VELOCITY < 0) {
+                        this.VELOCITY += this.ACCELERATION * 0.25;
+                    }
+                } 
+            }
             this.body.setVelocityX(this.VELOCITY);
-            this.setFlip(true, false);
             this.anims.play('walk', true);
             if (dust) {
                 dust.startFollow(my.sprite.player, my.sprite.player.displayWidth / 2 - 10, my.sprite.player.displayHeight / 2 - 5, false);
@@ -56,7 +88,14 @@ class Player extends Phaser.Physics.Arcade.Sprite {
             }
         }
         else {
+            // Slow player down to a halt, resetting its current velocity too
             this.body.setDragX(this.DRAG);
+            if (this.VELOCITY > 0) {
+                this.VELOCITY -= this.ACCELERATION * 2;
+            }
+            if (this.VELOCITY < 0) {
+                this.VELOCITY += this.ACCELERATION * 2;
+            }
             this.anims.play('idle', true);
             if (dust) {
                 dust.stop();

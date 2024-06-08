@@ -5,7 +5,7 @@ class Platformer extends Phaser.Scene {
 
     init() {
         // variables and settings
-        this.physics.world.gravity.y = 450;
+        this.physics.world.gravity.y = 550;
         this.SCALE = 1.5;
         this.win = false;
         this.enterKey = null;
