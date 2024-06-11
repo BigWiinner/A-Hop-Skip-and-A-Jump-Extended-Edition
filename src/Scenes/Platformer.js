@@ -58,8 +58,14 @@ class Platformer extends Phaser.Scene {
 
         this.flags = this.map.createLayer("flags-n-keys", this.tileset, 0, 0);
 
+        // create cursors here to put into player creation
+        cursors = this.input.keyboard.createCursorKeys();
+
+        // create shift key to put into player creation for sprint
+        this.shift = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SHIFT);
+
         // Create player and adjust hit zone to align sprite
-        my.sprite.player = new Player(this, 130, 350, 'idle', null);
+        my.sprite.player = new Player(this, 130, 350, 'idle', null, cursors, this.shift);
         my.sprite.player.setSize(24, 24);
         my.sprite.player.setOffset(0, 0);
 
@@ -125,13 +131,12 @@ class Platformer extends Phaser.Scene {
         my.text.found = this.add.bitmapText(this.map.widthInPixels - 135, 20, "blockFont", "You found me!").setScale(0.5);
         my.text.found.visible = false;
 
-        cursors = this.input.keyboard.createCursorKeys();
     }
 
     update() {
         // Call update function in Player.js for player character
         // Second parameter can be null for no particle affects
-        my.sprite.player.update(cursors, my.vfx.walking);
+        my.sprite.player.update(my.vfx.walking);
 
         // Player falls off of map, loses!
         if (my.sprite.player.y > game.config.height && !this.win) {
