@@ -22,14 +22,16 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         return this;
     }
 
+    // Movement controls
+    // and, if given, particle effects
     update(dust) {
-        // Movement controls
-        // Also applies particle effects if given
+        // if shift is down, allow player to dash
         if (this.shift.isDown) {
             this.MAXVELOCITY = 400;
         } else {
             this.MAXVELOCITY = 200;
         }
+
         if (this.cursors.left.isDown) {
             if (this.VELOCITY >= -this.MAXVELOCITY) {
                 // If player is on the ground, slow down like normal
@@ -52,9 +54,10 @@ class Player extends Phaser.Physics.Arcade.Sprite {
             }
             this.body.setVelocityX(this.VELOCITY);
             this.anims.play('walk', true);
+
+            // apply dust effect if given
             if (dust) {
                 dust.startFollow(this, this.displayWidth / 2 - 10, this.displayHeight / 2 - 5, false);
-
                 dust.setParticleSpeed(this.PARTICLE_VELOCITY, 0);
                 
                 // Only play smoke effect if touching the ground
@@ -88,6 +91,8 @@ class Player extends Phaser.Physics.Arcade.Sprite {
             }
             this.body.setVelocityX(this.VELOCITY);
             this.anims.play('walk', true);
+
+            // apply dust effect if given
             if (dust) {
                 dust.startFollow(my.sprite.player, my.sprite.player.displayWidth / 2 - 10, my.sprite.player.displayHeight / 2 - 5, false);
                 dust.setParticleSpeed(this.PARTICLE_VELOCITY, 0);
@@ -130,6 +135,8 @@ class Player extends Phaser.Physics.Arcade.Sprite {
             this.scene.sound.play("sfx_jump");
         }
 
+        // timer when player is up against a wall to determine
+        // if they can wall jump
         if (this.body.blocked.left || this.body.blocked.right) {
             this.timer++
         }
@@ -137,6 +144,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
             this.timer = 0;
         }
         
+        // determine if the player can either wall jump or double jump
         if (!this.body.blocked.down && Phaser.Input.Keyboard.JustDown(this.cursors.up)) {
             // wall jumps
             if (this.body.blocked.left && (this.timer > 25 || this.wallJump == true)) {
@@ -153,6 +161,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
                 this.resetFlip();
                 this.scene.sound.play("sfx_jump");
             }
+            // double jumps
             else if (this.scene.currJumps > 0) {
                 if (this.scene.currJumps === this.scene.totalJumps){
                     this.scene.currJumps--;
