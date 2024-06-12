@@ -3,10 +3,15 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "",
+    "activeFile": "Platform-Project-Level2.tmx",
     "expandedProjectPaths": [
+        "."
     ],
+    "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
+        "": {
+            "scaleInEditor": 1
+        },
         "#AutumnFarm_tilemap_packed": {
             "scaleInDock": 1
         },
@@ -17,11 +22,11 @@
             "scaleInDock": 1
         },
         "Platform-Project-Level1.tmx": {
-            "scale": 0.3887962962962963,
-            "selectedLayer": 7,
+            "scale": 0.33,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 1044.2486306263395,
-                "y": 384.52012383900933
+                "x": 1103.030303030303,
+                "y": -22.727272727272748
             }
         },
         "Platform-Project-Level1.tmx#AutumnFarm_tilemap_packed": {
@@ -38,18 +43,18 @@
         },
         "Platform-Project-Level2.tmx": {
             "scale": 0.33,
-            "selectedLayer": 2,
+            "selectedLayer": 0,
             "viewCenter": {
-                "x": 1081.818181818182,
-                "y": 307.5757575757575
+                "x": 1072.7272727272727,
+                "y": 389.39393939393926
             }
         },
         "Platform-Project-Level2.tmx#AutumnFarm_tilemap_packed": {
-            "scaleInDock": 1,
+            "scaleInDock": 1.5,
             "scaleInEditor": 1
         },
         "Platform-Project-Level2.tmx#Regular_tilemap_packed": {
-            "scaleInDock": 1,
+            "scaleInDock": 1.5,
             "scaleInEditor": 1
         },
         "Platform-Project-Level2.tmx#backgrounds_packed": {
@@ -64,11 +69,14 @@
     "map.tileWidth": 18,
     "map.width": 120,
     "openFiles": [
+        "Platform-Project-Level2.tmx",
+        "Platform-Project-Level1.tmx"
     ],
     "project": "Platform-Project-Levels.tiled-project",
     "property.type": "bool",
     "recentFiles": [
-        "Platform-Project-Level1.tmx"
+        "Platform-Project-Level1.tmx",
+        "Platform-Project-Level2.tmx"
     ],
     "tileset.embedInMap": true,
     "tileset.tileSize": {
