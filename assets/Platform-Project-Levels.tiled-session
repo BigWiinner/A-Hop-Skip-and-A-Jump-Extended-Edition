@@ -1,0 +1,78 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "",
+    "expandedProjectPaths": [
+    ],
+    "fileStates": {
+        "#AutumnFarm_tilemap_packed": {
+            "scaleInDock": 1
+        },
+        "#Regular_tilemap_packed": {
+            "scaleInEditor": 1
+        },
+        "#backgrounds_packed": {
+            "scaleInDock": 1
+        },
+        "Platform-Project-Level1.tmx": {
+            "scale": 0.3887962962962963,
+            "selectedLayer": 7,
+            "viewCenter": {
+                "x": 1044.2486306263395,
+                "y": 384.52012383900933
+            }
+        },
+        "Platform-Project-Level1.tmx#AutumnFarm_tilemap_packed": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Platform-Project-Level1.tmx#Regular_tilemap_packed": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Platform-Project-Level1.tmx#backgrounds_packed": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Platform-Project-Level2.tmx": {
+            "scale": 0.33,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 1081.818181818182,
+                "y": 307.5757575757575
+            }
+        },
+        "Platform-Project-Level2.tmx#AutumnFarm_tilemap_packed": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Platform-Project-Level2.tmx#Regular_tilemap_packed": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Platform-Project-Level2.tmx#backgrounds_packed": {
+            "scaleInDock": 1
+        }
+    },
+    "frame.defaultDuration": 250,
+    "last.imagePath": "C:/Users/Brade/OneDrive/Documents/CMPM120/A-Hop-Skip-and-A-Jump-Extended-Edition/assets",
+    "map.height": 60,
+    "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 18,
+    "map.tileWidth": 18,
+    "map.width": 120,
+    "openFiles": [
+    ],
+    "project": "Platform-Project-Levels.tiled-project",
+    "property.type": "bool",
+    "recentFiles": [
+        "Platform-Project-Level1.tmx"
+    ],
+    "tileset.embedInMap": true,
+    "tileset.tileSize": {
+        "height": 18,
+        "width": 18
+    }
+}
