@@ -54,7 +54,7 @@ class Platformer extends Phaser.Scene {
             name: "carrot",
             key: "tilemap_sheet",
             frame: 56
-        })
+        });
 
         this.flags = this.map.createLayer("flags-n-keys", this.tileset, 0, 0);
 
@@ -63,6 +63,9 @@ class Platformer extends Phaser.Scene {
 
         // create shift key to put into player creation for sprint
         this.shift = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SHIFT);
+
+        // create n key for next level button; TESTING ONLY, REMOVE BEFORE SUBMITTING
+        this.nKey = this.input.keyboard.addKey('N');
 
         // Create player and adjust hit zone to align sprite
         my.sprite.player = new Player(this, 130, 350, 'idle', null, cursors, this.shift);
@@ -150,6 +153,10 @@ class Platformer extends Phaser.Scene {
             this.timer--;
         } else {
             my.text.info.setVisible(false);
+        }
+
+        if(Phaser.Input.Keyboard.JustDown(this.nKey)) {
+            this.scene.start("levelTwo");
         }
 
         // Win condition is met, player is shown text and is able to reset

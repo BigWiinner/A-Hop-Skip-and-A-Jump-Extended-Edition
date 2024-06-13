@@ -53,6 +53,13 @@ class LevelTwo extends Phaser.Scene {
 
         // create shift key to put into player creation for sprint
         this.shift = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SHIFT);
+
+        // create r key for reset button
+        this.rKey = this.input.keyboard.addKey('R');
+
+        // create p key for previous level button
+        this.pKey = this.input.keyboard.addKey('P');
+
         // Create player and adjust hit zone to align sprite        
         my.sprite.player = new Player(this, 130, 786, 'idle', null, cursors, this.shift);
         my.sprite.player.setSize(24, 24);
@@ -74,8 +81,36 @@ class LevelTwo extends Phaser.Scene {
         this.physics.add.collider(my.sprite.player, this.groundLayer2);
         this.physics.add.collider(my.sprite.player, this.groundLayer1);
 
+        this.pumpkin = this.map.createFromObjects("End-Condition", {
+            name: "pumpkin",
+            key: "tilemap_sheet",
+            frame: 5
+        });
+
+        this.carrot = this.map.createFromObjects("Power-Ups", {
+            name: "carrot",
+            key: "tilemap_sheet",
+            frame: 56
+        });
+
+        this.physics.world.enable(this.pumpkin, Phaser.Physics.Arcade.STATIC_BODY);
+        this.pumpkinGroup = this.add.group(this.pumpkin);
+
+        this.physics.world.enable(this.carrot, Phaser.Physics.Arcade.STATIC_BODY);
+        this.carrotGroup = this.add.group(this.carrot);
+
         this.physics.add.overlap(my.sprite.player, this.killZoneGroup, (obj1, obj2) => {
             this.scene.restart();
+        });
+
+        this.physics.add.overlap(my.sprite.player, this.pumpkinGroup, (obj1, obj2) => {
+            this.win = true;
+        });
+
+        this.physics.add.overlap(my.sprite.player, this.carrotGroup, (obj1, obj2) => {
+            obj2.destroy();
+            this.totalJumps += 1;
+            this.sound.play("sfx_powerup");
         });
 
         this.physics.world.TILE_BIAS = 36;
@@ -94,5 +129,20 @@ class LevelTwo extends Phaser.Scene {
         // Call update function in Player.js for player character
         // Second parameter can be null for no particle affects
         my.sprite.player.update(my.vfx.walking);
+
+        // reset scene on r press
+        if(Phaser.Input.Keyboard.JustDown(this.rKey)) {
+            this.scene.restart();
+        }
+
+        // go back to previous level on p press
+        if(Phaser.Input.Keyboard.JustDown(this.pKey)) {
+            this.scene.start("platformerScene");
+        }
+
+        if (this.win) {
+            my.text.levelComplete.setVisible(true);
+            this.cameras.main.stopFollow();
+        }
     }
 }
