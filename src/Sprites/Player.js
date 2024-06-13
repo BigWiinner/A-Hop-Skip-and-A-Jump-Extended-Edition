@@ -147,14 +147,14 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         // determine if the player can either wall jump or double jump
         if (!this.body.blocked.down && Phaser.Input.Keyboard.JustDown(this.cursors.up)) {
             // wall jumps
-            if (this.body.blocked.left && (this.timer > 25 || this.wallJump == true)) {
+            if (this.body.blocked.left && (this.timer > 20 || this.wallJump == true)) {
                 this.VELOCITY = 250;
                 this.wallJump = true;
                 this.body.setVelocityY(this.JUMP_VELOCITY);
                 this.setFlip(true, false);
                 this.scene.sound.play("sfx_jump");
             }
-            else if (this.body.blocked.right && (this.timer > 25 || this.wallJump == true)) {
+            else if (this.body.blocked.right && (this.timer > 20 || this.wallJump == true)) {
                 this.VELOCITY = -250;
                 this.wallJump = true;
                 this.body.setVelocityY(this.JUMP_VELOCITY);

@@ -122,7 +122,7 @@ class Platformer extends Phaser.Scene {
         this.cameras.main.setDeadzone(30, 30);
         this.cameras.main.setZoom(this.SCALE);
 
-        my.text.levelComplete = this.add.bitmapText(this.map.widthInPixels - 425, 100, "blockFont", "         Level complete! \nPress ENTER to restart");
+        my.text.levelComplete = this.add.bitmapText(this.map.widthInPixels - 425, 100, "blockFont", "         Level complete! \nPress ENTER to continue");
         my.text.levelComplete.visible = false;
 
         my.text.info = this.add.bitmapText(195, 300, "blockFont", "      Collect carrots to \n        gain more jumps!\nHelp me find my friend!").setScale(0.5);
@@ -159,7 +159,7 @@ class Platformer extends Phaser.Scene {
             my.text.found.setVisible(true);
             this.cameras.main.stopFollow();
             if (Phaser.Input.Keyboard.JustDown(this.enterKey)) {
-                this.scene.restart();
+                this.scene.start("levelTwo");
             }
         }
     }
