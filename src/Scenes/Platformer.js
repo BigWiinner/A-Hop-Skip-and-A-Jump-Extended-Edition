@@ -22,6 +22,9 @@ class Platformer extends Phaser.Scene {
         this.map = this.add.tilemap("platformer-level-1", 18, 18, 45, 45);
 
         this.enterKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
+        
+        // create r key for reset button
+        this.rKey = this.input.keyboard.addKey('R');
 
         this.tileset = this.map.addTilesetImage("AutumnFarm_tilemap_packed", "tilemap_tiles");
         this.tileset2 = this.map.addTilesetImage("Regular_tilemap_packed", "tilemap_tiles2");
@@ -63,9 +66,6 @@ class Platformer extends Phaser.Scene {
 
         // create shift key to put into player creation for sprint
         this.shift = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SHIFT);
-
-        // create n key for next level button; TESTING ONLY, REMOVE BEFORE SUBMITTING
-        this.nKey = this.input.keyboard.addKey('N');
 
         // Create player and adjust hit zone to align sprite
         my.sprite.player = new Player(this, 130, 350, 'idle', null, cursors, this.shift);
@@ -142,7 +142,7 @@ class Platformer extends Phaser.Scene {
         my.sprite.player.update(my.vfx.walking);
 
         // Player falls off of map, loses!
-        if (my.sprite.player.y > game.config.height && !this.win) {
+        if ((my.sprite.player.y > game.config.height && !this.win) || Phaser.Input.Keyboard.JustDown(this.rKey)) {
             // Probably should display some text and stuff
             this.scene.restart();
         }
@@ -153,10 +153,6 @@ class Platformer extends Phaser.Scene {
             this.timer--;
         } else {
             my.text.info.setVisible(false);
-        }
-
-        if(Phaser.Input.Keyboard.JustDown(this.nKey)) {
-            this.scene.start("levelTwo");
         }
 
         // Win condition is met, player is shown text and is able to reset

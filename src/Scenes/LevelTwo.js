@@ -19,6 +19,8 @@ class LevelTwo extends Phaser.Scene {
     }
 
     create() {
+        this.enterKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
+
         this.map = this.add.tilemap("platformer-level-2", 18, 18, 45, 45);
 
         this.tileset = this.map.addTilesetImage("AutumnFarm_tilemap_packed", "tilemap_tiles");
@@ -48,6 +50,15 @@ class LevelTwo extends Phaser.Scene {
         this.physics.world.enable(this.killZone, Phaser.Physics.Arcade.STATIC_BODY);
         this.killZoneGroup = this.add.group(this.killZone);
 
+        this.pumpkin = this.map.createFromObjects("End-Condition", {
+            name: "pumpkin",
+            key: "tilemap_sheet",
+            frame: 5
+        });
+
+        this.physics.world.enable(this.pumpkin, Phaser.Physics.Arcade.STATIC_BODY);
+        this.pumpkinGroup = this.add.group(this.pumpkin);
+
         // create cursors here to put into player creation
         cursors = this.input.keyboard.createCursorKeys();
 
@@ -56,9 +67,6 @@ class LevelTwo extends Phaser.Scene {
 
         // create r key for reset button
         this.rKey = this.input.keyboard.addKey('R');
-
-        // create p key for previous level button
-        this.pKey = this.input.keyboard.addKey('P');
 
         // Create player and adjust hit zone to align sprite        
         my.sprite.player = new Player(this, 130, 786, 'idle', null, cursors, this.shift);
@@ -81,20 +89,11 @@ class LevelTwo extends Phaser.Scene {
         this.physics.add.collider(my.sprite.player, this.groundLayer2);
         this.physics.add.collider(my.sprite.player, this.groundLayer1);
 
-        this.pumpkin = this.map.createFromObjects("End-Condition", {
-            name: "pumpkin",
-            key: "tilemap_sheet",
-            frame: 5
-        });
-
         this.carrot = this.map.createFromObjects("Power-Ups", {
             name: "carrot",
             key: "tilemap_sheet",
             frame: 56
         });
-
-        this.physics.world.enable(this.pumpkin, Phaser.Physics.Arcade.STATIC_BODY);
-        this.pumpkinGroup = this.add.group(this.pumpkin);
 
         this.physics.world.enable(this.carrot, Phaser.Physics.Arcade.STATIC_BODY);
         this.carrotGroup = this.add.group(this.carrot);
@@ -117,6 +116,9 @@ class LevelTwo extends Phaser.Scene {
 
         this.animatedTiles.init(this.map);
 
+        my.text.levelComplete = this.add.bitmapText(this.map.widthInPixels - 450, 400, "blockFont", "         Level complete! \nPress ENTER to continue");
+        my.text.levelComplete.visible = false;
+
         this.cameras.main.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels);
         this.physics.world.setBounds(0, 0, this.map.widthInPixels, this.map.heightInPixels + 100);
         this.cameras.main.startFollow(my.sprite.player, true, 1, 0.25, -20, 20); // (target, [,roundPixels][,lerpX][,lerpY], x offset, y offset)
@@ -135,14 +137,12 @@ class LevelTwo extends Phaser.Scene {
             this.scene.restart();
         }
 
-        // go back to previous level on p press
-        if(Phaser.Input.Keyboard.JustDown(this.pKey)) {
-            this.scene.start("platformerScene");
-        }
-
         if (this.win) {
             my.text.levelComplete.setVisible(true);
             this.cameras.main.stopFollow();
+            if (Phaser.Input.Keyboard.JustDown(this.enterKey)) {
+                this.scene.start("Credits");
+            }
         }
     }
 }

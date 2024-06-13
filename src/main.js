@@ -24,7 +24,7 @@ let config = {
         height: 600
     },
     autoCenter: true,
-    scene: [Load, Title, Platformer, LevelTwo]
+    scene: [Load, Title, Platformer, LevelTwo, Credits]
 }
 
 var cursors;
