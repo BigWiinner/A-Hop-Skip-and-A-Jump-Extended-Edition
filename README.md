@@ -1,4 +1,5 @@
 A game where you play as a man trying to help find a missing pumpkin. Collect carrots to double, triple, quadruple, etc. jump!
+By Nathan Wiinikka and Braden Humphrey
 
 Art assets from Kenny Asset Store
 
